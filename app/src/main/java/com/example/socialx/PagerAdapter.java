@@ -11,6 +11,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class PagerAdapter extends FragmentStateAdapter {
     private int tabNumber;
+    Fragment signupFragment;
+    Fragment loginFragment;
 
     public PagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
@@ -19,10 +21,14 @@ public class PagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position){
-            case 0: return new Login();
-            case 1: return new Signup();
-            default: return null;
+        System.out.println("New Fragment: " + position);
+        if(position == 0){
+            loginFragment = new Login();
+            return loginFragment;
+        }
+        else{
+            signupFragment = new Signup();
+            return signupFragment;
         }
     }
 

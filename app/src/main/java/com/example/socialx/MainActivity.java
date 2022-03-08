@@ -12,25 +12,33 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
     ViewPager2 pager;
     TabLayout tabLayout;
     TabItem loginTab, signupTab;
+    PagerAdapter adapter;
     Button button;
+    FirebaseAuth firebaseAuth;
     boolean isSignupPageActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        firebaseAuth = FirebaseAuth.getInstance();
         tabLayout = findViewById(R.id.tabLayout);
         loginTab = findViewById(R.id.login);
         signupTab = findViewById(R.id.signup);
         pager = findViewById(R.id.viewPager);
         button = findViewById(R.id.button3);
-        PagerAdapter adapter = new PagerAdapter(this);
+        if(firebaseAuth.getCurrentUser() != null){
+            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            finish();
+        }
+        adapter = new PagerAdapter(this);
         pager.setAdapter(adapter);
         new TabLayoutMediator(tabLayout, pager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
@@ -46,10 +54,12 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isSignupPageActive)
-                    Toast.makeText(MainActivity.this, "Registration  complete", Toast.LENGTH_SHORT).show();
+                if(isSignupPageActive){
+                    ((Signup)adapter.signupFragment).validateData();
+                }
                 else{
-                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                    ((Login)adapter.loginFragment).validateData();
+                    //startActivity(new Intent(MainActivity.this, HomeActivity.class));
                 }
             }
         });
