@@ -1,5 +1,6 @@
 package com.example.socialx;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -8,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -21,7 +25,7 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements RequestManager.OnFetchDataListener{
 
-    Button button;
+
     RecyclerView recyclerView;
     CustomAdapter adapter;
     ProgressDialog dialog;
@@ -31,7 +35,6 @@ public class HomeActivity extends AppCompatActivity implements RequestManager.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        button = findViewById(R.id.button1);
         searchView = findViewById(R.id.search_bar);
         dialog = new ProgressDialog(this);
         dialog.setTitle("Fetching news Articles");
@@ -39,15 +42,8 @@ public class HomeActivity extends AppCompatActivity implements RequestManager.On
         setListeners();
     }
 
+
     private void setListeners() {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(HomeActivity.this, MainActivity.class));
-                finish();
-            }
-        });
         RequestManager manager = new RequestManager(this);
         manager.getNewsHeadlines(this, "general", null);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -89,5 +85,23 @@ public class HomeActivity extends AppCompatActivity implements RequestManager.On
     @Override
     public void onError(String message) {
         Toast.makeText(HomeActivity.this, "Error", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.logout_menu:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

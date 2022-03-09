@@ -2,11 +2,13 @@ package com.example.socialx;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 //#ff0404
 
@@ -21,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     TabItem loginTab, signupTab;
     PagerAdapter adapter;
-    Button button;
+    CardView cardView;
+    TextView textView;
+    //Button button;
     FirebaseAuth firebaseAuth;
     boolean isSignupPageActive;
 
@@ -29,12 +33,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setElevation(0);
         firebaseAuth = FirebaseAuth.getInstance();
         tabLayout = findViewById(R.id.tabLayout);
         loginTab = findViewById(R.id.login);
         signupTab = findViewById(R.id.signup);
         pager = findViewById(R.id.viewPager);
-        button = findViewById(R.id.button3);
+        //button = findViewById(R.id.button3);
+        cardView = findViewById(R.id.cardBottom);
+        textView = findViewById(R.id.submit);
         if(firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
             finish();
@@ -52,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).attach();
-        button.setOnClickListener(new View.OnClickListener() {
+        cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(isSignupPageActive){
@@ -60,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     ((Login)adapter.loginFragment).validateData();
-                    //startActivity(new Intent(MainActivity.this, HomeActivity.class));
                 }
             }
         });
@@ -69,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
     public void updateButton(boolean signupFragment){
         isSignupPageActive = signupFragment;
         if(isSignupPageActive)
-            button.setText("Register");
+            textView.setText("Register");
         else
-            button.setText("Login");
+            textView.setText("Login");
     }
 
 }

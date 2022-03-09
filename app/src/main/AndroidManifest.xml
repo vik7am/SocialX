@@ -13,11 +13,12 @@
         android:theme="@style/Theme.SocialX">
         <activity
             android:name=".HomeActivity"
+            android:theme="@style/Theme.SocialX_Home"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.SocialX">
+            android:theme="@style/Theme.SocialX_Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
