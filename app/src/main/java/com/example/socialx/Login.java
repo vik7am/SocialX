@@ -60,6 +60,7 @@ public class Login extends Fragment {
                 if(task.isSuccessful()){
                     Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getActivity(), HomeActivity.class));
+                    getActivity().finish();
                 }
                 else{
                     Toast.makeText(getActivity(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
