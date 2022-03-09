@@ -14,11 +14,14 @@ Completed Features:-
 
 ## Libraries/Framework Used
 
-- Firebase
-- Retrofit Library
-- Picasso
-- Gson Converter
-
+- Firebase- https://firebase.google.com
+Firebase is used to store user's email and passwords on firebase server for authentication.
+- Retrofit Library- https://github.com/square/retrofit
+Retrofit library is used to make https request to get data from news-api.
+- Picasso- https://github.com/square/picasso
+Picasso is used to download images.
+- Gson Converter- https://github.com/square/retrofit/tree/master/retrofit-converters/gson Gson is used to read JSON data.
+- News API- https://newsapi.org Read news in form of json data usign it's API.
 
 ## Application Preview
 
