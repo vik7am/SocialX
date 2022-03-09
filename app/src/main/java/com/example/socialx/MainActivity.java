@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.viewpager2.widget.ViewPager2;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     PagerAdapter adapter;
     CardView cardView;
     TextView textView;
-    //Button button;
+    ProgressDialog dialog;
     FirebaseAuth firebaseAuth;
     boolean isSignupPageActive;
 
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         loginTab = findViewById(R.id.login);
         signupTab = findViewById(R.id.signup);
         pager = findViewById(R.id.viewPager);
-        //button = findViewById(R.id.button3);
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("Please Wait");
         cardView = findViewById(R.id.cardBottom);
         textView = findViewById(R.id.submit);
         if(firebaseAuth.getCurrentUser() != null){

@@ -78,13 +78,14 @@ public class HomeActivity extends AppCompatActivity implements RequestManager.On
         }
         else{
             showNews(list);
-            dialog.dismiss();
         }
+        dialog.dismiss();
     }
 
     @Override
     public void onError(String message) {
         Toast.makeText(HomeActivity.this, "Error", Toast.LENGTH_SHORT).show();
+        dialog.dismiss();
     }
 
     @Override

@@ -6,6 +6,9 @@
     tools:context=".Signup">
 
     <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:drawableRight="@drawable/ic_baseline_person_24"
             android:inputType="textPersonName"
             android:hint="John doe" />
 
@@ -48,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:drawableRight="@drawable/ic_baseline_email_24"
             android:hint="johndow@gmail.com"
             android:inputType="textEmailAddress" />
 
@@ -64,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:drawableRight="@drawable/ic_baseline_call_24"
             android:hint="9876543210"
             android:inputType="phone" />
 
@@ -79,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:drawableRight="@drawable/ic_baseline_lock_24"
             android:hint="Password"
             android:inputType="textPassword" />
 
@@ -98,6 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:textColor="@color/red"
                 android:text="term &amp; condition" />
         </LinearLayout>
 
@@ -121,5 +129,6 @@
         </LinearLayout>
 
     </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

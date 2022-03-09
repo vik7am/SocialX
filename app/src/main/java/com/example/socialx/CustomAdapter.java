@@ -20,12 +20,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     private List<NewsHeadlines> headlines;
 
     public static class ViewHolder extends  RecyclerView.ViewHolder{
-        TextView textTitle, textSource;
+        TextView textTitle, textSource, text_time, text_description;
         ImageView imageView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textTitle = itemView.findViewById(R.id.text_title);
+            text_time = itemView.findViewById(R.id.text_time);
             textSource = itemView.findViewById(R.id.text_source);
+            text_description = itemView.findViewById(R.id.text_description);
             imageView = itemView.findViewById(R.id.imageView);
         }
     }
@@ -45,6 +47,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.textTitle.setText(headlines.get(position).getTitle());
         holder.textSource.setText(headlines.get(position).getSource().getName());
+        holder.text_time.setText(headlines.get(position).getPublishedAt().substring(11,16));
+        holder.text_description.setText(headlines.get(position).getDescription());
         if(headlines.get(position).getUrlToImage() != null){
             Picasso.get().load(headlines.get(position).getUrlToImage()).into(holder.imageView);
         }

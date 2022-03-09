@@ -44,20 +44,24 @@ public class Signup extends Fragment {
         String rawPassword = password.getText().toString().trim();
         if(TextUtils.isEmpty(rawEmail)){
             email.setError("Email is Required");
+            Toast.makeText(getActivity(), "Email is Required", Toast.LENGTH_SHORT).show();
             return;
         }
         if(TextUtils.isEmpty(rawPassword)){
             password.setError("Password is Required");
+            Toast.makeText(getActivity(), "Password is Required", Toast.LENGTH_SHORT).show();
             return;
         }
         if(rawPassword.length() < 6){
             password.setError("Password must be grater than 6");
             return;
         }
+        ((MainActivity)getActivity()).dialog.show();
         firebaseAuth.createUserWithEmailAndPassword(rawEmail, rawPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    ((MainActivity)getActivity()).dialog.dismiss();
                     Toast.makeText(getActivity(), "Registration successful", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getActivity(), HomeActivity.class));
                 }
