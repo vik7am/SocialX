@@ -1,7 +1,6 @@
 package com.example.socialx;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,7 +26,6 @@ public class Login extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         email = view.findViewById(R.id.editTextTextEmailAddress);
         password = view.findViewById(R.id.editTextTextPassword);
@@ -37,7 +34,7 @@ public class Login extends Fragment {
     }
 
     public void validateData(){
-        //Toast.makeText(getActivity(), "Toast is working", Toast.LENGTH_SHORT).show();
+        //Validate TextField data
         String rawEmail = email.getText().toString().trim();
         String rawPassword = password.getText().toString().trim();
         if(TextUtils.isEmpty(rawEmail)){
@@ -54,21 +51,22 @@ public class Login extends Fragment {
             password.setError("Password must be grater than 6");
             return;
         }
+        //show progress dialog
         ((MainActivity)getActivity()).dialog.show();
+        //Connect to firebase for login
         firebaseAuth.signInWithEmailAndPassword(rawEmail, rawPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    ((MainActivity)getActivity()).dialog.dismiss();
                     Toast.makeText(getActivity(), "Login successful", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getActivity(), HomeActivity.class));
                 }
                 else{
                     Toast.makeText(getActivity(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
+                ((MainActivity)getActivity()).dialog.dismiss();
             }
         });
-
     }
 
     @Override

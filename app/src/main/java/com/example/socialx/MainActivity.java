@@ -9,10 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-//#ff0404
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -35,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setElevation(0);
+
         firebaseAuth = FirebaseAuth.getInstance();
+        checkLoginStatus();
+
         tabLayout = findViewById(R.id.tabLayout);
         loginTab = findViewById(R.id.login);
         signupTab = findViewById(R.id.signup);
@@ -45,10 +44,22 @@ public class MainActivity extends AppCompatActivity {
         dialog.setTitle("Please Wait");
         cardView = findViewById(R.id.cardBottom);
         textView = findViewById(R.id.submit);
+
+        getSupportActionBar().setElevation(0);
+        initialize();
+
+    }
+
+    private void checkLoginStatus() {
+        //check firebase login status
         if(firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
             finish();
         }
+    }
+
+    public void initialize(){
+        //connects tabLayout to the view pager
         adapter = new PagerAdapter(this);
         pager.setAdapter(adapter);
         new TabLayoutMediator(tabLayout, pager, new TabLayoutMediator.TabConfigurationStrategy() {
@@ -62,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).attach();
+        //validates data depending upon active fragment
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateButton(boolean signupFragment){
+        //Update Submit cardView Text and function
         isSignupPageActive = signupFragment;
         if(isSignupPageActive)
             textView.setText("Register");

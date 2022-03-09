@@ -12,12 +12,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.socialx.models.NewsApiResponse;
 import com.example.socialx.models.NewsHeadlines;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -42,7 +38,6 @@ public class HomeActivity extends AppCompatActivity implements RequestManager.On
         setListeners();
     }
 
-
     private void setListeners() {
         RequestManager manager = new RequestManager(this);
         manager.getNewsHeadlines(this, "general", null);
@@ -55,7 +50,6 @@ public class HomeActivity extends AppCompatActivity implements RequestManager.On
                 manager.getNewsHeadlines(HomeActivity.this, "general", query);
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
